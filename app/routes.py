@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, session, redirect, url_for
+from flask import render_template, Blueprint, session, redirect, url_for, flash
 
 from .main import NameForm
 
@@ -10,6 +10,9 @@ def index():
     name = None
     form = NameForm()
     if form.validate_on_submit():
+        old_name = session.get('name')
+        if old_name and old_name != form.name.data:
+            flash("Looks like you changed your name")
         session["name"] = form.name.data
         form.name.data = ""
         return redirect(url_for("routes.index"))
