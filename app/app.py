@@ -11,6 +11,7 @@ def register_extensions(app):
 def create_app():
     app = Flask(__name__)
     # app configuration
+    app.config["SECRET_KEY"] = "key that should never be revealed..."
     # serve bootstrap from local. Later in production environment, take from cdn.
     app.config["BOOTSTRAP_SERVE_LOCAL"] = True
     register_extensions(app)
